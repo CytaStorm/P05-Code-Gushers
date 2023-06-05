@@ -1,0 +1,28 @@
+Code Gushers
+Jeff Chen
+Jian Hong Li
+Ryan Lau
+Ziying Jian
+PD8
+
+ ______   ______   __   __   __       ______   _______
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
+ 
+ Candy Crush Clone!
+
+--------------------------------------------------------------
+
+jeffC -- 2023-06-04 22:00
+
+Updated devlog according to feedback round:
+We needed to add some more detail regarding our different game modes,
+as well as more specifics on how exactly our game will work in terms of objects and data.
+We also broke down and delegated our tasks further, and gave finer details on how data and functions
+required for our game.
+
+--------------------------------------------------------------
