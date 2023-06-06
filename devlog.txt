@@ -26,3 +26,10 @@ We also broke down and delegated our tasks further, and gave finer details on ho
 required for our game.
 
 --------------------------------------------------------------
+
+jeffC -- 2023-06-05 21:14
+
+Runs html with background on the server at https://ergo.newjeans.live:4998/
+Started building out classes and objects for ducks with group during class
+
+--------------------------------------------------------------
