@@ -36,4 +36,3 @@ class rainbowSpecial extends Duck{
     //function that takes in what color you swipe with and activates effect based on that
     
 }
- 

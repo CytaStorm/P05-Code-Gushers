@@ -2,3 +2,15 @@ body {
   background-image: url('https://wallpapers.com/images/hd/candy-crush-saga-background-a8jkcqn32lawvzeo.jpg');
 }
 
+
+#board {
+  width: 500px;
+  height: 500px;
+  background-color: lightblue;
+  boarder: 5px solid slategray;
+  border-radius: 10px;
+}
+
+#board img{
+  
+}
