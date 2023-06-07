@@ -9,6 +9,7 @@ body {
   background-color: lightblue;
   boarder: 5px solid slategray;
   border-radius: 10px;
+  margin: auto;
 }
 
 #board img{
