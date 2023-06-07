@@ -1,4 +1,5 @@
-var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//vvar candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+var candies = ["Yellow", "Red", "Purple"];
 var board = [];
 var rows = 10;
 var columns = 10;
@@ -106,8 +107,8 @@ function dragEnd() {
             currTile.src = otherImg;
             otherTile.src = currImg;    
         } else {
-            //crushFive(r2, c2);
-            //crushFour(r2, c2);
+            crushFive(r2, c2);
+            crushFour(r2, c2);
         }
     }
 }
@@ -161,7 +162,7 @@ function crushFive(row, col){
             let candy3 = board[r][c+2];
             let candy4 = board[r][c+3];
             let candy5 = board[r][c+4];
-            if (candy1.src == candy2.src && candy2.src == candy3.src && candy2.src == candy3.src && candy2.src == candy3.src &&!candy1.src.includes("blank")) {
+            if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
                 candy1.src = "./images/blank.png";
                 candy2.src = "./images/blank.png";
                 candy3.src = "./images/blank.png";
@@ -178,7 +179,9 @@ function crushFive(row, col){
             let candy1 = board[r][c];
             let candy2 = board[r+1][c];
             let candy3 = board[r+2][c];
-            if (candy1.src == candy2.src && candy2.src == candy3.src && !candy1.src.includes("blank")) {
+            let candy4 = board[r+3][c];
+            let candy5 = board[r+4][c];
+            if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
                 candy1.src = "./images/blank.png";
                 candy2.src = "./images/blank.png";
                 candy3.src = "./images/blank.png";
