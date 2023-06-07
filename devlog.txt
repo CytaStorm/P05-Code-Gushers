@@ -17,12 +17,12 @@ PD8
 
 --------------------------------------------------------------
 
-jeffC -- 2023-06-04 22:00
+jeffc -- 2023-06-04 22:00
 
-Updated devlog according to feedback round:
-We needed to add some more detail regarding our different game modes,
+updated devlog according to feedback round:
+we needed to add some more detail regarding our different game modes,
 as well as more specifics on how exactly our game will work in terms of objects and data.
-We also broke down and delegated our tasks further, and gave finer details on how data and functions
+we also broke down and delegated our tasks further, and gave finer details on how data and functions
 required for our game.
 
 --------------------------------------------------------------
@@ -38,5 +38,11 @@ jeffC -- 2023-06-06 19:45
 
 Updated design doc to reflect changes: we will be simply extending an existing, basic javascript implementation of Candy Crush 
 to allow for all special candies as well as a scoreboard/pause system.
+
+--------------------------------------------------------------
+
+jeffC -- 2023-06-07 14:-05
+
+Added clearing functions for 4 and 5 chains.
 
 --------------------------------------------------------------
