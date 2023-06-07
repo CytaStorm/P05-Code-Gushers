@@ -1,8 +1,7 @@
-//vvar candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-var candies = ["Yellow", "Red", "Purple"];
+var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
 var board = [];
-var rows = 10;
-var columns = 10;
+var rows = 5;
+var columns = 5;
 var score = 0;
 
 var currTile;
@@ -207,6 +206,7 @@ function crushFour(row, col){
                 candy3.src = "./images/blank.png";
                 candy4.src = "./images/blank.png";
                 score += 40;
+                //spawn 4 duck powerup (horizontal)
             }
         }
     }
@@ -224,6 +224,7 @@ function crushFour(row, col){
                 candy3.src = "./images/blank.png";
                 candy4.src = "./images/blank.png";
                 score += 40;
+                //spawn 4 duck powerup (vertical)
             }
         }
     }
