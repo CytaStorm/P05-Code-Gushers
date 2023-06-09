@@ -227,7 +227,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     if (comboCountV == 5) {
       replaceColorBomb(checkRow, checkCol);
     } else if (comboCountV == 4) {
-      replaceStripe(checkRow, checkCol, "vertical");
+      replaceStripe(checkRow, checkCol, "vertical", color);
     }
     return comboCountV;
   }
