@@ -207,7 +207,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
 
   //decide what do after counting combo size for row and column
 
-  if (comboCountH > 2 && comboCountV > 2) {
+  if (comboCountH == 3 && comboCountV == 3) {
     //make bomb
     console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
     replaceBomb(checkRow, checkCol, color)
