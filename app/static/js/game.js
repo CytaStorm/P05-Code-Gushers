@@ -126,9 +126,9 @@ function crushCandy() {
 
 }
 
-//function replaceBomb(row, col, col){
-//  board[row][col].src = "./static/images/special.png";
-//}
+function replaceBomb(row, col, color){
+  board[row][col].src = "./static/images/special.png";
+}
 
 function checkFiveSpecial(checkRow, checkCol, matchTile) {
   //check rows  
@@ -151,6 +151,7 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
       //console.log("breaks at: " + current);
       break;
     }
+    board[checkRow][current].src = "./static/images/blank.png"
     comboCount++;
     //console.log("backwards check: " + comboCount);
   }
@@ -158,14 +159,15 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     if (board[checkRow][current].src != matchTile.src) {
       break;
     }
+    board[checkRow][current].src = "./static/images/blank.png"
     comboCount++;
     //console.log("forward check: " + comboCount);
   }
   if (comboCount > 2) {
-    //console.log("horizontal comboCount is " + comboCount);
-    //if (comboCount == 5) {
-    //  replaceBomb(checkRow, checkCol);
-    //}
+    console.log("horizontal comboCount is " + comboCount);
+    if (comboCount == 5) {
+      replaceBomb(checkRow, checkCol);
+    }
     return comboCount;
   }
   //check columns
@@ -175,6 +177,7 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     if (board[current][checkCol].src != matchTile.src) {
       break;
     }
+    board[current][checkCol].src = "./static/images/blank.png"
     comboCount++;
     //console.log("backwards check: " + comboCount);
   } 
@@ -183,11 +186,15 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     if (board[current][checkCol].src != matchTile.src) {
       break;
     }
+    board[current][checkCol].src = "./static/images/blank.png"
     comboCount++;
     //console.log("forwards check: " + comboCount);
   }
   if (comboCount > 2) {
     //console.log("vertical comboCount is " + comboCount);
+    if (comboCount == 5) {
+      replaceBomb(checkRow, checkCol);
+    }
     return comboCount;
   }
   //console.log("comboCount is " + comboCount);
@@ -235,7 +242,7 @@ function crushFive(){
       let candy4 = board[r][c+3];
       let candy5 = board[r][c+4];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
-        candy1.src = "./static/images/special.png";
+        candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
@@ -254,7 +261,7 @@ function crushFive(){
       let candy4 = board[r+3][c];
       let candy5 = board[r+4][c];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
-        candy1.src = "./static/images/special.png";
+        candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
@@ -274,7 +281,7 @@ function crushFour(){
       let candy3 = board[r][c+2];
       let candy4 = board[r][c+3];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
-        candy1.src = "./static/images/special.png";
+        candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
@@ -292,7 +299,7 @@ function crushFour(){
       let candy3 = board[r+2][c];
       let candy4 = board[r+2][c];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
-        candy1.src = "./static/images/special.png";
+        candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
