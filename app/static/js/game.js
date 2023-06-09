@@ -109,7 +109,11 @@ function dragEnd() {
     } else {
       //console.log(r2.toString() + " " + c2.toString());
       //console.log(checkFiveSpecial(r2,c2,otherTile));
+      //
+      //check for for direct swipes (swipe red to complete red string)
       console.log(checkFiveSpecial(r2,c2,otherTile));
+      //check for indirect swipes (swipe ohter color to move red to complete red string)
+      console.log(checkFiveSpecial(r,c,currTile));
     }
   }
 }
@@ -156,7 +160,7 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     //console.log("forward check: " + comboCount);
   }
   if (comboCount > 2) {
-    console.log("horizontal comboCount is " + comboCount);
+    //console.log("horizontal comboCount is " + comboCount);
     return comboCount;
   }
   //check columns
@@ -178,7 +182,7 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     //console.log("forwards check: " + comboCount);
   }
   if (comboCount > 2) {
-    console.log("vertical comboCount is " + comboCount);
+    //console.log("vertical comboCount is " + comboCount);
     return comboCount;
   }
   //console.log("comboCount is " + comboCount);
