@@ -111,9 +111,11 @@ function dragEnd() {
       //console.log(checkFiveSpecial(r2,c2,otherTile));
       //
       //check for for direct swipes (swipe red to complete red string)
-      console.log(checkFiveSpecial(r2,c2,otherTile));
+      let color = getColor(r, c);
+      console.log(checkSpecial(r2,c2,otherTile, color));
       //check for indirect swipes (swipe ohter color to move red to complete red string)
-      console.log(checkFiveSpecial(r,c,currTile));
+      color = getColor(r2,c2);
+      console.log(checkSpecial(r,c,currTile, color));
     }
   }
 }
@@ -126,21 +128,37 @@ function crushCandy() {
 
 }
 
-function replaceBomb(row, col){
+function getColor(row, col){
+  let t0 = board[row][col].src.split("/");
+  if (board[row][col].src.includes("-")) {
+    return t0[t0.length-1].split("-")[0];
+  } else {
+    let t1 = t0[t0.length-1];
+    return t1.substring(0,t1.length-4);
+  }
+}
+function replaceBomb(row, col, color){
+  board[row][col].src = "./static/images/" + color + "-bomb.png";
+}
+function replaceColorBomb(row, col){
   board[row][col].src = "./static/images/special.png";
 }
-function replaceStripe(row, col, orientation){
+
+function replaceStripe(row, col, orientation, color){
   if (orientation == "vertical") {
-    board[row][col].src = "./static/images/verticalStripe.png";
+    board[row][col].src = "./static/images/" + color + "-stripedV.png";
   } else if (orientation == "horizontal") {
-    board[row][col].src = "./static/images/horizontalStripe.png";
+    board[row][col].src = "./static/images/" + color + "-stripedH.png";
   } else {
     throw new Error('Please specify orientation');
   }
 }
-function checkFiveSpecial(checkRow, checkCol, matchTile) {
-  let comboCount = 1;
+function checkSpecial(checkRow, checkCol, matchTile) {
+  let color = getColor(checkRow, checkCol);
   //check rows
+  let beforeCountH = 0;
+  let afterCountH = 0;
+  let comboCountH = 1;
   for (let current = checkCol - 1; current >= 0; current--) {
     //console.log("current is: " + current);
     if (board[checkRow][current].src != matchTile.src) {
@@ -148,7 +166,8 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
       break;
     }
     board[checkRow][current].src = "./static/images/blank.png"
-    comboCount++;
+    beforeCountH++;
+    comboCountH++;
     //console.log("backwards check: " + comboCount);
   }
   for (let current = checkCol + 1; current < columns; current++) {
@@ -156,28 +175,24 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
       break;
     }
     board[checkRow][current].src = "./static/images/blank.png"
-    comboCount++;
+    afterCountH++;
+    comboCountH++;
     //console.log("forward check: " + comboCount);
   }
-  if (comboCount > 2) {
-    console.log("horizontal comboCount is " + comboCount);
-    if (comboCount == 5) {
-      replaceBomb(checkRow, checkCol);
-    } else if (comboCount == 4) {
-      replaceStripe(checkRow, checkCol, "horizontal");
-    }
-    return comboCount;
-  }
+  
   //check columns
-  comboCount = 1;
-  //console.log("reset: " +comboCount);
+  let beforeCountV = 0;
+  let afterCountV = 0;
+  let comboCountV = 1; 
+  //console.log("reset: " +comboCountV);
   for (let current = checkRow - 1; current >= 0; current--) {
     if (board[current][checkCol].src != matchTile.src) {
       break;
     }
     board[current][checkCol].src = "./static/images/blank.png"
-    comboCount++;
-    //console.log("backwards check: " + comboCount);
+    beforeCountV++;
+    comboCountV++;
+    //console.log("backwards check: " + comboCountV);
   } 
 
   for (let current = checkRow + 1; current < rows; current++) {
@@ -185,21 +200,41 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
       break;
     }
     board[current][checkCol].src = "./static/images/blank.png"
-    comboCount++;
-    //console.log("forwards check: " + comboCount);
+    afterCountV++;
+    comboCountV++;
+    //console.log("forwards check: " + comboCountV);
   }
-  if (comboCount > 2) {
-    //console.log("vertical comboCount is " + comboCount);
-    if (comboCount == 5) {
-      replaceBomb(checkRow, checkCol);
-    } else if (comboCount == 4) {
+
+  //decide what do after counting combo size for row and column
+
+  if (comboCountH > 2 && comboCountV > 2) {
+    //make bomb
+    console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+    replaceBomb(checkRow, checkCol, color)
+    return ("comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+  }
+  if (comboCountH > 2) {
+    console.log("horizontal comboCount is " + comboCountH);
+    if (comboCountH == 5) {
+      replaceColorBomb(checkRow, checkCol);
+    } else if (comboCountH == 4) {
+      replaceStripe(checkRow, checkCol, "horizontal", color);
+    }
+    return comboCountH;
+  }
+  if (comboCountV > 2) {
+    //console.log("vertical comboCountV is " + comboCount);
+    if (comboCountV == 5) {
+      replaceColorBomb(checkRow, checkCol);
+    } else if (comboCountV == 4) {
       replaceStripe(checkRow, checkCol, "vertical");
     }
-    return comboCount;
+    return comboCountV;
   }
   //console.log("comboCount is " + comboCount);
   return 0;
 }
+
 function crushThree() {
   //check rows
   for (let r = 0; r < rows; r++) {
@@ -207,7 +242,10 @@ function crushThree() {
       let candy1 = board[r][c];
       let candy2 = board[r][c+1];
       let candy3 = board[r][c+2];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && !candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r,c+1);
+      let color3 = getColor(r,c+2);
+      if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
         candy1.src = "./images/blank.png";
         candy2.src = "./images/blank.png";
         candy3.src = "./images/blank.png";
@@ -222,7 +260,10 @@ function crushThree() {
       let candy1 = board[r][c];
       let candy2 = board[r+1][c];
       let candy3 = board[r+2][c];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && !candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r+1,c);
+      let color3 = getColor(r+2,c);
+      if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
         candy1.src = "./images/blank.png";
         candy2.src = "./images/blank.png";
         candy3.src = "./images/blank.png";
@@ -241,7 +282,14 @@ function crushFive(){
       let candy3 = board[r][c+2];
       let candy4 = board[r][c+3];
       let candy5 = board[r][c+4];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r,c+1);
+      let color3 = getColor(r,c+2);
+      let color4 = getColor(r,c+3);
+      let color5 = getColor(r,c+4);
+      if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
+        console.log("crush 5 row " + color1);
+
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -249,15 +297,15 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/special.png";
+            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
           case 1:
-            candy2.src = "./static/images/special.png";
+            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
           case 2:
-            candy3.src = "./static/images/special.png";
+            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
           case 3:
-            candy4.src = "./static/images/special.png";
+            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
           default:
-            candy5.src = "./static/images/special.png";
+            candy5.src = "./static/images/"+ color1 + "-stripedH.png";
         }
         score += 50;
       }
@@ -272,7 +320,13 @@ function crushFive(){
       let candy3 = board[r+2][c];
       let candy4 = board[r+3][c];
       let candy5 = board[r+4][c];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r+1,c);
+      let color3 = getColor(r+2,c);
+      let color4 = getColor(r+3,c);
+      let color5 = getColor(r+4,c);
+      if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
+        console.log("crush 5 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -280,21 +334,44 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/special.png";
+            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
           case 1:
-            candy2.src = "./static/images/special.png";
+            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
           case 2:
-            candy3.src = "./static/images/special.png";
+            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
           case 3:
-            candy4.src = "./static/images/special.png";
+            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
           default:
-            candy5.src = "./static/images/special.png";
+            candy5.src = "./static/images/"+ color1 + "-stripedV.png";
         }
         score += 50;
       }
     }
   }
 }
+
+function crushSpecialFour(row, col, orientation){
+  if (orientation == "vertical") {
+    for (c = 0; c < columns; c++){
+      board[c][row].src = "./static/images/blank.png";
+    }
+  }
+  else{
+    for (r = 0; r < rows; r++){
+      board[r][col].src = "./static/images/blank.png";
+    }
+  }
+}
+
+//function crushBomb(row, col){
+//  for (r = row - 3%row; r <= row + 2 ; r++){
+//   for (c = cow - 2; c <= col + 2; c++){
+//      board[columns][];
+//    }
+//  }
+//}
+
+
 
 function crushFour(){
   //check rows
@@ -304,7 +381,12 @@ function crushFour(){
       let candy2 = board[r][c+1];
       let candy3 = board[r][c+2];
       let candy4 = board[r][c+3];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r,c+1);
+      let color3 = getColor(r,c+2);
+      let color4 = getColor(r,c+3);
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+        console.log("crush 4 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -312,16 +394,15 @@ function crushFour(){
         //currently autocompleted 4 combos will default to horizontal stripes
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/horizontalStripe.png";
+            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
           case 1:
-            candy2.src = "./static/images/horizontalStripe.png";
+            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
           case 2:
-            candy3.src = "./static/images/horizontalStripe.png";
+            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
           default:
-            candy4.src = "./static/images/horizontalStripe.png";
+            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
         }
         score += 40;
-        //spawn 4 duck powerup (horizontal)
       }
     }
   }
@@ -329,24 +410,30 @@ function crushFour(){
   //check columns
   for (let c = 0; c < columns; c++) {
     for (let r = 0; r < rows-3; r++) {
+
       let candy1 = board[r][c];
       let candy2 = board[r+1][c];
       let candy3 = board[r+2][c];
-      let candy4 = board[r+2][c];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
+      let candy4 = board[r+3][c];
+      let color1 = getColor(r,c);
+      let color2 = getColor(r+1,c);
+      let color3 = getColor(r+2,c);
+      let color4 = getColor(r+3,c);
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+        console.log("crush 4 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/horizontalStripe.png";
+            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
           case 1:
-            candy2.src = "./static/images/horizontalStripe.png";
+            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
           case 2:
-            candy3.src = "./static/images/horizontalStripe.png";
+            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
           default:
-            candy4.src = "./static/images/horizontalStripe.png";
+            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
         }
         score += 40;
         //spawn 4 duck powerup (vertical)
@@ -360,9 +447,10 @@ function checkValid() {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns-2; c++) {
       let candy1 = board[r][c];
-      let candy2 = board[r][c+1];
-      let candy3 = board[r][c+2];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && !candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r,c+1);
+      let color3 = getColor(r,c+2);
+      if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
         return true;
       }
     }
@@ -372,9 +460,10 @@ function checkValid() {
   for (let c = 0; c < columns; c++) {
     for (let r = 0; r < rows-2; r++) {
       let candy1 = board[r][c];
-      let candy2 = board[r+1][c];
-      let candy3 = board[r+2][c];
-      if (candy1.src == candy2.src && candy2.src == candy3.src && !candy1.src.includes("blank")) {
+      let color1 = getColor(r,c);
+      let color2 = getColor(r,c+1);
+      let color3 = getColor(r,c+2);
+      if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
         return true;
       }
     }
