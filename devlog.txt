@@ -47,8 +47,10 @@ Added clearing functions for 4 and 5 chains.
 
 ---------------------------------------------------------------
 
-jeffC -- 2023-06-08 XX:XX
+jeffC -- 2023-06-08 22:00
 
 Created function to check for the size of the combo (setup for creating specials)
+Created placeholder bomb (5 combo), spawning works, effects not in place
+Created placeholder stripe (4 combo), spawning works, effects not in place
 
 --------------------------------------------------------------
