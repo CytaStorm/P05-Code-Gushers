@@ -137,9 +137,9 @@ function getColor(row, col){
     return t1.substring(0,t1.length-4);
   }
 }
-//function replaceBomb(row, col, color){
-//  board[row][col].src = "./static/images/" + color + "-Bomb.png";
-//}
+function replaceBomb(row, col, color){
+  board[row][col].src = "./static/images/" + color + "-bomb.png";
+}
 function replaceColorBomb(row, col){
   board[row][col].src = "./static/images/special.png";
 }
@@ -207,11 +207,12 @@ function checkSpecial(checkRow, checkCol, matchTile) {
 
   //decide what do after counting combo size for row and column
 
- // if (comboCountH > 2 && comboCountV > 2) {
- //   //make bomb
- //   console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
- //   replaceBomb(color)
- // }
+  if (comboCountH > 2 && comboCountV > 2) {
+    //make bomb
+    console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+    replaceBomb(checkRow, checkCol, color)
+    return ("comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+  }
   if (comboCountH > 2) {
     console.log("horizontal comboCount is " + comboCountH);
     if (comboCountH == 5) {
