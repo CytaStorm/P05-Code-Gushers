@@ -146,9 +146,9 @@ function replaceColorBomb(row, col){
 
 function replaceStripe(row, col, orientation, color){
   if (orientation == "vertical") {
-    board[row][col].src = "./static/images/" + color + "-stripedV.png";
+    board[row][col].src = "./static/images/" + "Striped-" + color + "V.png"
   } else if (orientation == "horizontal") {
-    board[row][col].src = "./static/images/" + color + "-stripedH.png";
+    board[row][col].src = "./static/images/" + "Striped-" + color + "H.png"
   } else {
     throw new Error('Please specify orientation');
   }
@@ -297,15 +297,15 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy1.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy2.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy3.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy4.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy5.src = "./static/images/"+ "Striped-" + color1 + "H.png";
         }
         score += 50;
       }
@@ -334,15 +334,15 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy1.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy2.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy3.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy4.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy5.src = "./static/images/"+ "Striped-" + color1 + "V.png";
         }
         score += 50;
       }
@@ -394,13 +394,13 @@ function crushFour(){
         //currently autocompleted 4 combos will default to horizontal stripes
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy1.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy2.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy3.src = "./static/images/"+ "Striped-" + color1 + "H.png";
           default:
-            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy4.src = "./static/images/"+ "Striped-" + color1 + "H.png";
         }
         score += 40;
       }
@@ -427,13 +427,13 @@ function crushFour(){
         candy4.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy1.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy2.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy3.src = "./static/images/"+ "Striped-" + color1 + "V.png";
           default:
-            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy4.src = "./static/images/"+ "Striped-" + color1 + "V.png";
         }
         score += 40;
         //spawn 4 duck powerup (vertical)
