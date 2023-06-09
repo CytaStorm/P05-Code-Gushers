@@ -288,7 +288,7 @@ function crushFive(){
       let color4 = getColor(r,c+3);
       let color5 = getColor(r,c+4);
       if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
-        console.log("crush 5 row " + color1);
+        //console.log("crush 5 row " + color1);
 
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
@@ -326,7 +326,7 @@ function crushFive(){
       let color4 = getColor(r+3,c);
       let color5 = getColor(r+4,c);
       if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
-        console.log("crush 5 column " + color1);
+        //console.log("crush 5 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -386,7 +386,7 @@ function crushFour(){
       let color3 = getColor(r,c+2);
       let color4 = getColor(r,c+3);
       if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
-        console.log("crush 4 column " + color1);
+        //console.log("crush 4 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -420,7 +420,7 @@ function crushFour(){
       let color3 = getColor(r+2,c);
       let color4 = getColor(r+3,c);
       if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
-        console.log("crush 4 column " + color1);
+        //console.log("crush 4 column " + color1);
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -451,6 +451,7 @@ function checkValid() {
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
+        console.log("here0");
         return true;
       }
     }
@@ -461,9 +462,10 @@ function checkValid() {
     for (let r = 0; r < rows-2; r++) {
       let candy1 = board[r][c];
       let color1 = getColor(r,c);
-      let color2 = getColor(r,c+1);
-      let color3 = getColor(r,c+2);
+      let color2 = getColor(r+1,c);
+      let color3 = getColor(r+2,c);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
+        console.log("here");
         return true;
       }
     }
