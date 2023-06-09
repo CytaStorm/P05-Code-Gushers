@@ -126,23 +126,19 @@ function crushCandy() {
 
 }
 
-function replaceBomb(row, col, color){
+function replaceBomb(row, col){
   board[row][col].src = "./static/images/special.png";
 }
-
+function replaceStripe(row, col, orientation){
+  if (orientation == "vertical") {
+    board[row][col].src = "./static/images/verticalStripe.png";
+  } else if (orientation == "horizontal") {
+    board[row][col].src = "./static/images/horizontalStripe.png";
+  } else {
+    throw new Error('Please specify orientation');
+  }
+}
 function checkFiveSpecial(checkRow, checkCol, matchTile) {
-  //check rows  
-  //console.log("current");
-  //console.log(currTile);
-  //console.log("other");
-  //console.log(otherTile);
-  //console.log(checkRow);
-  //console.log(checkCol);
-  //console.log(matchTile);
-
-
-
-
   let comboCount = 1;
   //check rows
   for (let current = checkCol - 1; current >= 0; current--) {
@@ -167,6 +163,8 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     console.log("horizontal comboCount is " + comboCount);
     if (comboCount == 5) {
       replaceBomb(checkRow, checkCol);
+    } else if (comboCount == 4) {
+      replaceStripe(checkRow, checkCol, "horizontal");
     }
     return comboCount;
   }
@@ -194,6 +192,8 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     //console.log("vertical comboCount is " + comboCount);
     if (comboCount == 5) {
       replaceBomb(checkRow, checkCol);
+    } else if (comboCount == 4) {
+      replaceStripe(checkRow, checkCol, "vertical");
     }
     return comboCount;
   }
@@ -247,6 +247,18 @@ function crushFive(){
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
         candy5.src = "./static/images/blank.png";
+        switch (Math.floor(Math.random() * 5)) {
+          case 0:
+            candy1.src = "./static/images/special.png";
+          case 1:
+            candy2.src = "./static/images/special.png";
+          case 2:
+            candy3.src = "./static/images/special.png";
+          case 3:
+            candy4.src = "./static/images/special.png";
+          default:
+            candy5.src = "./static/images/special.png";
+        }
         score += 50;
       }
     }
@@ -266,6 +278,18 @@ function crushFive(){
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
         candy5.src = "./static/images/blank.png";
+        switch (Math.floor(Math.random() * 5)) {
+          case 0:
+            candy1.src = "./static/images/special.png";
+          case 1:
+            candy2.src = "./static/images/special.png";
+          case 2:
+            candy3.src = "./static/images/special.png";
+          case 3:
+            candy4.src = "./static/images/special.png";
+          default:
+            candy5.src = "./static/images/special.png";
+        }
         score += 50;
       }
     }
@@ -285,6 +309,17 @@ function crushFour(){
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
+        //currently autocompleted 4 combos will default to horizontal stripes
+        switch (Math.floor(Math.random() * 5)) {
+          case 0:
+            candy1.src = "./static/images/horizontalStripe.png";
+          case 1:
+            candy2.src = "./static/images/horizontalStripe.png";
+          case 2:
+            candy3.src = "./static/images/horizontalStripe.png";
+          default:
+            candy4.src = "./static/images/horizontalStripe.png";
+        }
         score += 40;
         //spawn 4 duck powerup (horizontal)
       }
@@ -303,6 +338,16 @@ function crushFour(){
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         candy4.src = "./static/images/blank.png";
+        switch (Math.floor(Math.random() * 5)) {
+          case 0:
+            candy1.src = "./static/images/horizontalStripe.png";
+          case 1:
+            candy2.src = "./static/images/horizontalStripe.png";
+          case 2:
+            candy3.src = "./static/images/horizontalStripe.png";
+          default:
+            candy4.src = "./static/images/horizontalStripe.png";
+        }
         score += 40;
         //spawn 4 duck powerup (vertical)
       }
