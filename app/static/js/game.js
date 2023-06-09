@@ -1,5 +1,5 @@
-var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-//var candies = ["Yellow", "Red", "Purple"];
+//var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+var candies = ["Yellow", "Red", "Purple"];
 var board = [];
 var rows = 10;
 var columns = 10;
@@ -126,6 +126,10 @@ function crushCandy() {
 
 }
 
+//function replaceBomb(row, col, col){
+//  board[row][col].src = "./static/images/special.png";
+//}
+
 function checkFiveSpecial(checkRow, checkCol, matchTile) {
   //check rows  
   //console.log("current");
@@ -141,18 +145,16 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
 
   let comboCount = 1;
   //check rows
-  for (let current = checkCol-1; current >= 0; current--) {
+  for (let current = checkCol - 1; current >= 0; current--) {
     //console.log("current is: " + current);
     if (board[checkRow][current].src != matchTile.src) {
-      //console.log(board[checkRow][current]);
-      //console.log(matchTile);
       //console.log("breaks at: " + current);
       break;
     }
     comboCount++;
     //console.log("backwards check: " + comboCount);
   }
-  for (let current = checkCol+1; current < columns; current++) {
+  for (let current = checkCol + 1; current < columns; current++) {
     if (board[checkRow][current].src != matchTile.src) {
       break;
     }
@@ -161,12 +163,15 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
   }
   if (comboCount > 2) {
     //console.log("horizontal comboCount is " + comboCount);
+    //if (comboCount == 5) {
+    //  replaceBomb(checkRow, checkCol);
+    //}
     return comboCount;
   }
   //check columns
   comboCount = 1;
   //console.log("reset: " +comboCount);
-  for (let current = checkRow-1; current >= 0; current--) {
+  for (let current = checkRow - 1; current >= 0; current--) {
     if (board[current][checkCol].src != matchTile.src) {
       break;
     }
@@ -174,7 +179,7 @@ function checkFiveSpecial(checkRow, checkCol, matchTile) {
     //console.log("backwards check: " + comboCount);
   } 
 
-  for (let current = checkRow+1; current < rows; current++) {
+  for (let current = checkRow + 1; current < rows; current++) {
     if (board[current][checkCol].src != matchTile.src) {
       break;
     }
@@ -230,11 +235,11 @@ function crushFive(){
       let candy4 = board[r][c+3];
       let candy5 = board[r][c+4];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
-        candy4.src = "./images/blank.png";
-        candy5.src = "./images/blank.png";
+        candy1.src = "./static/images/special.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
+        candy4.src = "./static/images/blank.png";
+        candy5.src = "./static/images/blank.png";
         score += 50;
       }
     }
@@ -249,11 +254,11 @@ function crushFive(){
       let candy4 = board[r+3][c];
       let candy5 = board[r+4][c];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && candy4.src == candy5.src &&!candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
-        candy4.src = "./images/blank.png";
-        candy5.src = "./images/blank.png";
+        candy1.src = "./static/images/special.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
+        candy4.src = "./static/images/blank.png";
+        candy5.src = "./static/images/blank.png";
         score += 50;
       }
     }
@@ -269,10 +274,10 @@ function crushFour(){
       let candy3 = board[r][c+2];
       let candy4 = board[r][c+3];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
-        candy4.src = "./images/blank.png";
+        candy1.src = "./static/images/special.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
+        candy4.src = "./static/images/blank.png";
         score += 40;
         //spawn 4 duck powerup (horizontal)
       }
@@ -287,10 +292,10 @@ function crushFour(){
       let candy3 = board[r+2][c];
       let candy4 = board[r+2][c];
       if (candy1.src == candy2.src && candy2.src == candy3.src && candy3.src == candy4.src && !candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
-        candy4.src = "./images/blank.png";
+        candy1.src = "./static/images/special.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
+        candy4.src = "./static/images/blank.png";
         score += 40;
         //spawn 4 duck powerup (vertical)
       }

@@ -45,4 +45,10 @@ jeffC -- 2023-06-07 14:-05
 
 Added clearing functions for 4 and 5 chains.
 
+---------------------------------------------------------------
+
+jeffC -- 2023-06-08 XX:XX
+
+Created function to check for the size of the combo (setup for creating specials)
+
 --------------------------------------------------------------
