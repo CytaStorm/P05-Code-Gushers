@@ -246,9 +246,9 @@ function crushThree() {
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
+        candy1.src = "./static/images/blank.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
         score += 30;
       }
     }
@@ -264,9 +264,9 @@ function crushThree() {
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        candy1.src = "./images/blank.png";
-        candy2.src = "./images/blank.png";
-        candy3.src = "./images/blank.png";
+        candy1.src = "./static/images/blank.png";
+        candy2.src = "./static/images/blank.png";
+        candy3.src = "./static/images/blank.png";
         score += 30;
       }
     }
