@@ -55,10 +55,11 @@ Created placeholder stripe (4 combo), spawning works, effects not in place
 
 --------------------------------------------------------------
 
-jeffC  -- 2023-06-09 17:05
+jeffC  -- 2023-06-09 18:31
 
 Created different colored versions of each horizontal and vertical striped duck, and each now works with the normal version of the duck.
 Setup for different effects for special ducks
 Got bombs to spawn correctly
+All spawns work correctly, still cannot use bomb in any combos
 
 --------------------------------------------------------------
