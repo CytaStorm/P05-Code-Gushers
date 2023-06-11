@@ -1,5 +1,5 @@
 //var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-var candies = ["Yellow", "Red", "Purple"];
+var candies = ["Yellow", "Red", "Purple", "Blue"];
 var board = [];
 var rows = 10;
 var columns = 10;
@@ -105,7 +105,7 @@ function dragEnd() {
       let currImg = currTile.src;
       let otherImg = otherTile.src;
       currTile.src = otherImg;
-      otherTile.src = currImg;    
+      otherTile.src = currImg;
     } else {
       //console.log(r2.toString() + " " + c2.toString());
       //console.log(checkFiveSpecial(r2,c2,otherTile));
@@ -137,6 +137,19 @@ function getColor(row, col){
     return t1.substring(0,t1.length-4);
   }
 }
+
+function getOrientation(row, col){
+  let t0 = board[row][col].src.split("/");
+  let t1 = t0[t0.length-1];
+  let t2 = t1.split("-");
+  console.log(t2)
+  let t3 = t2[t2.length-1];
+  console.log(t3);
+  let t4 = t3.substring(7,t3.length-4);
+  console.log(t4);
+  return t4;
+}
+
 function replaceBomb(row, col, color){
   board[row][col].src = "./static/images/" + color + "-bomb.png";
 }
@@ -179,11 +192,11 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     comboCountH++;
     //console.log("forward check: " + comboCount);
   }
-  
+
   //check columns
   let beforeCountV = 0;
   let afterCountV = 0;
-  let comboCountV = 1; 
+  let comboCountV = 1;
   //console.log("reset: " +comboCountV);
   for (let current = checkRow - 1; current >= 0; current--) {
     if (board[current][checkCol].src != matchTile.src) {
@@ -193,7 +206,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     beforeCountV++;
     comboCountV++;
     //console.log("backwards check: " + comboCountV);
-  } 
+  }
 
   for (let current = checkRow + 1; current < rows; current++) {
     if (board[current][checkCol].src != matchTile.src) {
@@ -246,6 +259,15 @@ function crushThree() {
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r, c+1);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r, c+2);
+        }
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -264,6 +286,15 @@ function crushThree() {
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r+1, c);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r+2, c);
+        }
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -350,10 +381,10 @@ function crushFive(){
   }
 }
 
-function crushSpecialFour(row, col, orientation){
-  if (orientation == "vertical") {
+function crushSpecialStripes(row, col, orientation){
+  if (orientation == "H") {
     for (c = 0; c < columns; c++){
-      board[c][row].src = "./static/images/blank.png";
+      board[row][c].src = "./static/images/blank.png";
     }
   }
   else{
@@ -488,6 +519,34 @@ function slideCandy() {
     for (let r = ind; r >= 0; r--) {
       board[r][c].src = "./static/images/blank.png";
     }
+  }
+}
+
+function getSpecialType(r, c){
+  let t0 = board[r][c].src.split("/");
+  let t1 = t0[t0.length-1];
+  if (t1.includes("bomb")){
+    return "bomb";
+  }
+  if (t1.includes("striped")){
+    return "striped";
+  }
+}
+
+function isSpecial(duck){
+  if (duck.includes("-")) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function crushSpecial(r, c){
+  let type = getSpecialType(r,c);
+  if (type == "striped"){
+    let orientation = getOrientation(r,c);
+    crushSpecialStripes(r, c, orientation);
   }
 }
 
