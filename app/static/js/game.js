@@ -1,5 +1,5 @@
 //let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple", "Blue"];
+let candies = ["Yellow", "Red", "Purple"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -342,7 +342,21 @@ function crushFive(){
       let color5 = getColor(r,c+4);
       if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
         //console.log("crush 5 row " + color1);
-
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r, c+1);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r, c+2);
+        }
+        if (isSpecial(candy4.src)){
+          crushSpecial(r, c+3);
+        }
+        if (isSpecial(candy5.src)){
+          crushSpecial(r, c+4);
+        }
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -381,6 +395,21 @@ function crushFive(){
       let color5 = getColor(r+4,c);
       if (color1 == color2 && color2 == color3 && color3 == color4 && color4 == color5 && !candy1.src.includes("blank")) {
         //console.log("crush 5 column " + color1);
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r+1, c);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r+2, c);
+        }
+        if (isSpecial(candy4.src)){
+          crushSpecial(r+3, c);
+        }
+        if (isSpecial(candy5.src)){
+          crushSpecial(r+4, c);
+        }
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -442,6 +471,18 @@ function crushFour(){
       let color4 = getColor(r,c+3);
       if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
         //console.log("crush 4 column " + color1);
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r, c+1);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r, c+2);
+        }
+        if (isSpecial(candy4.src)){
+          crushSpecial(r, c+3);
+        }
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
@@ -477,6 +518,19 @@ function crushFour(){
       let color4 = getColor(r+3,c);
       if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
         //console.log("crush 4 column " + color1);
+        if (isSpecial(candy1.src)){
+          crushSpecial(r, c);
+        }
+        if (isSpecial(candy2.src)){
+          crushSpecial(r+1, c);
+        }
+        if (isSpecial(candy3.src)){
+          crushSpecial(r+2, c);
+        }
+        if (isSpecial(candy1.src)){
+          crushSpecial(r+3, c);
+        }
+
         candy1.src = "./static/images/blank.png";
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
