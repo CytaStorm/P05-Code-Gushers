@@ -63,8 +63,15 @@ Got bombs to spawn correctly
 All spawns work correctly, still cannot use bomb in any combos
 
 --------------------------------------------------------------
+
 jianhongL  -- 2023-06-11 18:44
 
 Crush special striped ducks 
+
+--------------------------------------------------------------
+
+jeffC  -- 2023-06-11 19:28
+
+Worked with jian hong, got coin counter to work, fixed up striped duck-related errors
 
 --------------------------------------------------------------
