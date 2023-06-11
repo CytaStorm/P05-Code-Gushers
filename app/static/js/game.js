@@ -1,13 +1,12 @@
-//var candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-var candies = ["Yellow", "Red", "Purple"];
-var board = [];
-var rows = 10;
-var columns = 10;
-var score = 0;
+let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//var candies = ["Yellow", "Red", "Purple"];
+let board = [];
+let rows = 10;
+let columns = 10;
+let score = 0;
 
-var currTile;
-var otherTile;
-
+let currTile;
+let otherTile;
 
 window.onload = function() {
   startGame();
@@ -142,6 +141,7 @@ function replaceBomb(row, col, color){
 }
 function replaceColorBomb(row, col){
   board[row][col].src = "./static/images/special.png";
+  score += 50;
 }
 
 function replaceStripe(row, col, orientation, color){
@@ -152,6 +152,7 @@ function replaceStripe(row, col, orientation, color){
   } else {
     throw new Error('Please specify orientation');
   }
+  score += 40;
 }
 function checkSpecial(checkRow, checkCol, matchTile) {
   let color = getColor(checkRow, checkCol);
@@ -215,19 +216,25 @@ function checkSpecial(checkRow, checkCol, matchTile) {
   }
   if (comboCountH > 2) {
     console.log("horizontal comboCount is " + comboCountH);
-    if (comboCountH == 5) {
-      replaceColorBomb(checkRow, checkCol);
-    } else if (comboCountH == 4) {
-      replaceStripe(checkRow, checkCol, "horizontal", color);
+    switch (comboCountH) {
+      case 5:
+        replaceColorBomb(checkRow, checkCol);
+      case 4: 
+        replaceStripe(checkRow, checkCol, "horizontal", color);
+      default:
+        score += 30;
     }
     return comboCountH;
   }
   if (comboCountV > 2) {
     //console.log("vertical comboCountV is " + comboCount);
-    if (comboCountV == 5) {
-      replaceColorBomb(checkRow, checkCol);
-    } else if (comboCountV == 4) {
-      replaceStripe(checkRow, checkCol, "vertical", color);
+    switch (comboCountV) {
+      case 5:
+        replaceColorBomb(checkRow, checkCol);
+      case 4: 
+        replaceStripe(checkRow, checkCol, "vertical", color);
+      default:
+        score += 30;
     }
     return comboCountV;
   }
