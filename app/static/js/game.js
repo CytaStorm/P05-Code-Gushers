@@ -1,5 +1,5 @@
-let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-//let candies = ["Green", "Yellow", "Red", "Purple"];
+//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+let candies = ["Yellow", "Red", "Purple"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -530,7 +530,7 @@ function crushFour(){
         if (isSpecial(candy3.src)){
           crushSpecial(r+2, c);
         }
-        if (isSpecial(candy1.src)){
+        if (isSpecial(candy4.src)){
           crushSpecial(r+3, c);
         }
 
