@@ -4,30 +4,20 @@ let board = [];
 let rows = 10;
 let columns = 10;
 let score = 0;
-let coins = 0;
-let scoreDelta = 0;
 
 let currTile;
 let otherTile;
 
 window.onload = function() {
   startGame();
-
+  generateCandy();
   //1/10th of a second
   window.setInterval(function(){
     crushCandy();
     slideCandy();
-    generateCandy();
-    checkScoreDelta();
   }, 100);
 }
 
-function checkScoreDelta() {
-  if (scoreDelta > 100) {
-    coins++;
-    scoreDelta - 100
-  }
-}
 function randomCandy() {
   return candies[Math.floor(Math.random() * candies.length)]; //0 - 5.99
 }
@@ -151,7 +141,6 @@ function replaceBomb(row, col, color){
 function replaceColorBomb(row, col){
   board[row][col].src = "./static/images/special.png";
   score += 50;
-  scoreDelta += 50;
 }
 
 function replaceStripe(row, col, orientation, color){
@@ -163,7 +152,6 @@ function replaceStripe(row, col, orientation, color){
     throw new Error('Please specify orientation');
   }
   score += 40;
-  scoreDelta += 50;
 }
 function checkSpecial(checkRow, checkCol, matchTile) {
   let color = getColor(checkRow, checkCol);
@@ -234,7 +222,6 @@ function checkSpecial(checkRow, checkCol, matchTile) {
         replaceStripe(checkRow, checkCol, "horizontal", color);
       default:
         score += 30;
-        scoreDelta += 30;
     }
     return comboCountH;
   }
@@ -247,7 +234,6 @@ function checkSpecial(checkRow, checkCol, matchTile) {
         replaceStripe(checkRow, checkCol, "vertical", color);
       default:
         score += 30;
-        scoreDelta += 30;
     }
     return comboCountV;
   }
@@ -270,7 +256,6 @@ function crushThree() {
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         score += 30;
-        scoreDelta += 30;
       }
     }
   }
@@ -289,8 +274,6 @@ function crushThree() {
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         score += 30;
-        scoreDelta += 30;
-      }
       }
     }
   }
@@ -331,7 +314,6 @@ function crushFive(){
             candy5.src = "./static/images/"+ color1 + "-stripedH.png";
         }
         score += 50;
-        scoreDelta += 50;
       }
     }
   }
@@ -369,7 +351,6 @@ function crushFive(){
             candy5.src = "./static/images/"+ color1 + "-stripedV.png";
         }
         score += 50;
-        scoreDelta += 50;
       }
     }
   }
@@ -428,7 +409,6 @@ function crushFour(){
             candy4.src = "./static/images/"+ color1 + "-stripedH.png";
         }
         score += 40;
-        scoreDelta += 40;
       }
     }
   }
@@ -462,7 +442,6 @@ function crushFour(){
             candy4.src = "./static/images/"+ color1 + "-stripedV.png";
         }
         score += 40;
-        scoreDelta += 40;
         //spawn 4 duck powerup (vertical)
       }
     }
