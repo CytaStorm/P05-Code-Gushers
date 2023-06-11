@@ -1,10 +1,10 @@
-//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple", "Blue"];
+let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//let candies = ["Yellow", "Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
 let score = 0;
-let coins = 0;
+let coins = 10;
 let scoreDelta = 0;
 
 let currTile;
@@ -12,20 +12,21 @@ let otherTile;
 
 window.onload = function() {
   startGame();
-
   //1/10th of a second
   window.setInterval(function(){
     crushCandy();
     slideCandy();
     generateCandy();
     checkScoreDelta();
+    console.log(scoreDelta);
   }, 100);
 }
 
 function checkScoreDelta() {
-  if (scoreDelta > 100) {
-    coins++;
-    scoreDelta - 100
+  if (scoreDelta >= 100) {
+    let addCoins = Math.floor((scoreDelta / 100));
+    coins += addCoins;
+    scoreDelta = scoreDelta % 100;
   }
 }
 function randomCandy() {
@@ -124,6 +125,7 @@ function dragEnd() {
       //check for indirect swipes (swipe ohter color to move red to complete red string)
       color = getColor(r2,c2);
       console.log(checkSpecial(r,c,currTile, color));
+      coins--;
     }
   }
 }
@@ -133,6 +135,7 @@ function crushCandy() {
   crushFour();
   crushThree();
   document.getElementById("score").innerText = score;
+  document.getElementById("coins").innerText = coins;
 
 }
 
