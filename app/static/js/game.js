@@ -322,7 +322,6 @@ function crushThree() {
         score += 30;
         scoreDelta += 30;
       }
-      }
     }
   }
 }

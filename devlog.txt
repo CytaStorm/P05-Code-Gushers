@@ -12,7 +12,7 @@ PD8
   \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
    \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
- 
+
  Candy Crush Clone!
 
 --------------------------------------------------------------
@@ -36,7 +36,7 @@ Started building out classes and objects for ducks with group during class
 
 jeffC -- 2023-06-06 19:45
 
-Updated design doc to reflect changes: we will be simply extending an existing, basic javascript implementation of Candy Crush 
+Updated design doc to reflect changes: we will be simply extending an existing, basic javascript implementation of Candy Crush
 to allow for all special candies as well as a scoreboard/pause system.
 
 --------------------------------------------------------------
@@ -61,5 +61,10 @@ Created different colored versions of each horizontal and vertical striped duck,
 Setup for different effects for special ducks
 Got bombs to spawn correctly
 All spawns work correctly, still cannot use bomb in any combos
+
+--------------------------------------------------------------
+jianhongL  -- 2023-06-11 18:44
+
+Crush special striped ducks 
 
 --------------------------------------------------------------
