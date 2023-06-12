@@ -13,19 +13,31 @@ let otherTile;
 window.onload = function() {
   startGame();
 
-  var isFirstLoad = true;
+  //let isFirstLoad = true;
+  generateCandy();
+  //console.log(checkValid());
+  while (checkValid()) {
+    crushCandy(true);
+    slideCandy();
+    fillCandy();
+  }
 
-  // 1/10th of a second
+  console.log("here");
+  score = 0;
+  scoreDelta = 0;
+  coins = 20;
+  //1/10th of a second
   window.setInterval(function(){
-    if (isFirstLoad) {
-      isFirstLoad = false;
-    } else {
+  //  if (isFirstLoad) {
+  //    isFirstLoad = false;
+  //  } else
+  //{
       crushCandy();
       slideCandy();
       generateCandy();
       checkScoreDelta();
       console.log(scoreDelta);
-    }
+  //  }
   }, 100);
 
   // Remove the automatic crushing after a certain delay
@@ -142,12 +154,14 @@ function dragEnd() {
   }
 }
 
-function crushCandy() {
+function crushCandy(first) {
   crushFive();
   crushFour();
   crushThree();
-  document.getElementById("score").innerText = score;
-  document.getElementById("coins").innerText = coins;
+  if (!first) {
+    document.getElementById("score").innerText = score;
+    document.getElementById("coins").innerText = coins;
+  }
 
 }
 
@@ -577,7 +591,7 @@ function checkValid() {
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        console.log("here0");
+//        console.log("here0");
         return true;
       }
     }
@@ -679,6 +693,15 @@ function generateCandy() {
   for (let c = 0; c < columns;  c++) {
     if (board[0][c].src.includes("blank")) {
       board[0][c].src = "./static/images/" + randomCandy() + ".png";
+    }
+  }
+}
+function fillCandy() {
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < columns;  c++) {
+      if (board[r][c].src.includes("blank")) {
+        board[r][c].src = "./static/images/" + randomCandy() + ".png";
+      }
     }
   }
 }
