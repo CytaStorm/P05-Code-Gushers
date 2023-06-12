@@ -1,5 +1,5 @@
-//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple"];
+let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//let candies = ["Yellow", "Red", "Purple"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -12,9 +12,9 @@ let otherTile;
 
 window.onload = function() {
   startGame();
-  
+
   var isFirstLoad = true;
-  
+
   // 1/10th of a second
   window.setInterval(function(){
     if (isFirstLoad) {
@@ -27,7 +27,7 @@ window.onload = function() {
       console.log(scoreDelta);
     }
   }, 100);
-  
+
   // Remove the automatic crushing after a certain delay
   setTimeout(function() {
     isFirstLoad = false;
@@ -643,12 +643,53 @@ function crushSpecial(r, c){
     let orientation = getOrientation(r,c);
     crushSpecialStripes(r, c, orientation);
   }
+  if (type = "bomb"){
+    crushBomb(r, c);
+  }
+}
+
+function crushBomb(r, c){
+  i = r - 2;
+  i2 = r + 2;
+  k = c - 2;
+  k2 = c + 2;
+
+  if (r == 0){
+    i = 0;
+  }
+  if (r == 1){
+    i = 0;
+  }
+  if (r == 9){
+    i2 = 10;
+  }
+  if (r == 10){
+    i2 = 10;
+  }
+  if (c == 0){
+    k = 0;
+  }
+  if (c == 1){
+    k = 0;
+  }
+  if (c == 9){
+    k2 = 10;
+  }
+  if (c == 10){
+    k2 = 10;
+  }
+  for (i3 = i; i3 < i2; i3++){
+    for (k3 = k; k3 < k2; k3++){
+      board[i][k].src = "./static/images/blank.png";
+    }
+  }
 }
 
 function generateCandy() {
   for (let c = 0; c < columns;  c++) {
     if (board[0][c].src.includes("blank")) {
       board[0][c].src = "./static/images/" + randomCandy() + ".png";
+
     }
   }
 }
