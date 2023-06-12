@@ -93,5 +93,7 @@ Worked with jian hong, got coin counter to work, fixed up striped duck-related e
 ziggyJ - 2023-06-11 20:00
 
 Created a rainbow duck (special.png)
+Configured duck pong background (duck_pond_v2.png)
+Made a tutorial/home page (home.html)
 
 --------------------------------------------------------------
