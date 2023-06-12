@@ -1,6 +1,9 @@
 body {
-  background-image: url("./static/images/duck_pond_v2.png");
-  /* background-image: url('https://imgur.com/7nWq17R'); */
+  background-image: url("../images/duck_pond_v2.png");
+  /* background-repeat: no-repeat; */
+  /* background-size: auto; */
+  /* background- */
+  background-size: cover;
   /* background-image: url('https://wallpapers.com/images/hd/candy-crush-saga-background-a8jkcqn32lawvzeo.jpg'); */
 }
 
