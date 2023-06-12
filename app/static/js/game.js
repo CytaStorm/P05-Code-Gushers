@@ -12,14 +12,26 @@ let otherTile;
 
 window.onload = function() {
   startGame();
-  //1/10th of a second
+  
+  var isFirstLoad = true;
+  
+  // 1/10th of a second
   window.setInterval(function(){
-    crushCandy();
-    slideCandy();
-    generateCandy();
-    checkScoreDelta();
-    console.log(scoreDelta);
+    if (isFirstLoad) {
+      isFirstLoad = false;
+    } else {
+      crushCandy();
+      slideCandy();
+      generateCandy();
+      checkScoreDelta();
+      console.log(scoreDelta);
+    }
   }, 100);
+  
+  // Remove the automatic crushing after a certain delay
+  setTimeout(function() {
+    isFirstLoad = false;
+  }, 2000); // Change the delay as needed
 }
 
 function checkScoreDelta() {

@@ -1,5 +1,7 @@
 body {
-  background-image: url('https://wallpapers.com/images/hd/candy-crush-saga-background-a8jkcqn32lawvzeo.jpg');
+  background-image: url("app/static/images/duck_pond_v2.png");
+  /* background-image: url('https://imgur.com/7nWq17R'); */
+  /* background-image: url('https://wallpapers.com/images/hd/candy-crush-saga-background-a8jkcqn32lawvzeo.jpg'); */
 }
 
 
@@ -7,14 +9,14 @@ body {
   width: 500px;
   height: 500px;
   background-color: lightblue;
-  boarder: 5px solid slategray;
+  /* border: 5px solid slategray; */
   border-radius: 10px;
   margin: auto;
 }
 
-#board img{
+/* #board img{
   
-}
+} */
 
 ul {
   list-style-type: none;
