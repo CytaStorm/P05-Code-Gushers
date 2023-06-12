@@ -1,5 +1,5 @@
-let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-//let candies = ["Yellow", "Red", "Purple"];
+//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+let candies = ["Yellow", "Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -649,38 +649,28 @@ function crushSpecial(r, c){
 }
 
 function crushBomb(r, c){
-  i = r - 2;
-  i2 = r + 2;
-  k = c - 2;
-  k2 = c + 2;
+  xMin = r - 2;
+  xMax = r + 2;
+  yMin = c - 2;
+  yMax = c + 2;
 
-  if (r == 0){
-    i = 0;
+  if (r <= 1){
+    xMin = 0;
   }
-  if (r == 1){
-    i = 0;
+  if (r >= 9){
+    xMax = 10;
   }
-  if (r == 9){
-    i2 = 10;
+  if (c <= 1){
+    yMin = 0;
   }
-  if (r == 10){
-    i2 = 10;
+  if (c >= 9){
+    yMax = 10;
   }
-  if (c == 0){
-    k = 0;
-  }
-  if (c == 1){
-    k = 0;
-  }
-  if (c == 9){
-    k2 = 10;
-  }
-  if (c == 10){
-    k2 = 10;
-  }
-  for (i3 = i; i3 < i2; i3++){
-    for (k3 = k; k3 < k2; k3++){
-      board[i][k].src = "./static/images/blank.png";
+  for (row = xMin; row < xMax; row++){
+    for (col = yMin; col < yMax; col++){
+      board[row][col].src = "./static/images/blank.png";
+      console.log("bombed at [" + row + ", " + col+"]");
+
     }
   }
 }
@@ -689,7 +679,6 @@ function generateCandy() {
   for (let c = 0; c < columns;  c++) {
     if (board[0][c].src.includes("blank")) {
       board[0][c].src = "./static/images/" + randomCandy() + ".png";
-
     }
   }
 }
