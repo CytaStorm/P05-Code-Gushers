@@ -48,7 +48,7 @@ to allow for all special candies as well as a scoreboard/pause system.
 
 --------------------------------------------------------------
 
-jeffC -- 2023-06-07 14:-05
+jeffC -- 2023-06-07 14:05
 
 Added clearing functions for 4 and 5 chains.
 
@@ -101,5 +101,11 @@ Made a tutorial/home page (home.html)
 jianhongL  -- 2023-06-12 12:45
 
 Crush special striped ducks
+
+--------------------------------------------------------------
+
+jeffC & jianhongL -- 2023-06-12 23:43
+
+Touched up game, got rainbow ducks to spawn and added their effects, as well as finished game end screen popup, and added clear mode.
 
 --------------------------------------------------------------
