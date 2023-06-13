@@ -46,6 +46,13 @@
   border-radius: 10px;
   margin: auto;
 }
+#counter {
+  background-color: lightblue
+}
+#counter2 {
+  background-color: lightblue
+}
+
 /* #board img{
   
 } */
