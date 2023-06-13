@@ -11,6 +11,8 @@ A Candy Crush style match 3 game using Javascript/HTML/CSS/Flask
 LAUNCH CODES
 Clone the repo
 ```
+https://github.com/CytaStorm/P05-Code-Gushers.git
+```
 pip install -m venv venv
 ```
 FOR WINDOWS:
