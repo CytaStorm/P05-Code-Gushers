@@ -22,13 +22,14 @@ FOR LINUX:
 . venv/bin/activate
 
 ```
-```
 pip install flask
 
-```
 ```
 python3 app/__init__.py
 
 ```
+Now go to your localhost ```127.0.0.1:5000```
+
+And play the game!
 CREDITS:
 https://github.com/ImKennyYip/candy-crush for the base code we worked off of

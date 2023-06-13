@@ -1,5 +1,5 @@
-//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Red", "Purple", "Blue", "Yellow"];
+let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//let candies = ["Red", "Purple", "Blue", "Yellow"];
 let board = [];
 let rows = 10;
 let columns = 10;
