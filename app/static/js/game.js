@@ -486,11 +486,15 @@ function crushSpecialStripes(row, col, orientation){
   if (orientation == "H") {
     for (c = 0; c < columns; c++){
       board[row][c].src = "./static/images/blank.png";
+      score += 10;
+      scoreDelta += 10;
     }
   }
   else{
     for (r = 0; r < rows; r++){
       board[r][col].src = "./static/images/blank.png";
+      score += 10;
+      scoreDelta += 10;
     }
   }
 }
@@ -745,7 +749,8 @@ function crushBomb(r, c){
     for (col = yMin; col < yMax; col++){
       board[row][col].src = "./static/images/blank.png";
       //console.log("bombed at [" + row + ", " + col+"]");
-
+      score += 10;
+      scoreDelta += 10;
     }
   }
 }
@@ -757,6 +762,8 @@ function crushRainbow(row,col,color){
       if (getColor(r,c) == color){
         console.log("crushing rainbow");
         board[r][c].src = "./static/images/blank.png";
+        score += 10;
+        scoreDelta += 10;
       }
     }
   }
