@@ -1,5 +1,5 @@
-let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-//let candies = ["Red", "Purple", "Blue"];
+//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+let candies = ["Red", "Purple", "Blue", "Yellow"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -151,17 +151,17 @@ function dragEnd() {
       //
       //check for for direct swipes (swipe red to complete red string)
       let color1 = getColor(r, c);
-      console.log(checkSpecial(r2,c2,otherTile, color1));
-      //check for indirect swipes (swipe ohter color to move red to complete red string)
       let color2 = getColor(r2,c2);
-      console.log(checkSpecial(r,c,currTile, color2));
-      coins--;
       if (board[r][c].src.includes("special")){
         crushRainbow(r,c,color2);
       }
       if (board[r2][c2].src.includes("special")){
         crushRainbow(r2,c2,color1);
       }
+      console.log(checkSpecial(r2,c2,otherTile, color1));
+      //check for indirect swipes (swipe ohter color to move red to complete red string)
+      console.log(checkSpecial(r,c,currTile, color2));
+      coins--;
     }
   }
 }
@@ -291,8 +291,11 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     switch (comboCountH) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
+        console.log("5 combo");
+        break;
       case 4:
         replaceStripe(checkRow, checkCol, "horizontal", color);
+        break;
       default:
         score += 30;
         scoreDelta += 30;
@@ -304,8 +307,11 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     switch (comboCountV) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
+        console.log("5 combo");
+        break;
       case 4:
         replaceStripe(checkRow, checkCol, "vertical", color); //make stripe
+        break;
       default:
         score += 30;
         scoreDelta += 30;
@@ -413,14 +419,19 @@ function crushFive(){
         switch (Math.floor(Math.random() * 5)) {
           case 0:
             candy1.src = "./static/images/special.png";
+            break;
           case 1:
             candy2.src = "./static/images/special.png";
+            break;
           case 2:
             candy3.src = "./static/images/special.png";
+            break;
           case 3:
             candy4.src = "./static/images/special.png";
+            break;
           default:
             candy5.src = "./static/images/special.png";
+            break;
         }
         score += 50;
         scoreDelta += 50;
@@ -466,14 +477,19 @@ function crushFive(){
         switch (Math.floor(Math.random() * 5)) {
           case 0:
             candy1.src = "./static/images/special.png";
+            break;
           case 1:
             candy2.src = "./static/images/special.png";
+            break;
           case 2:
             candy3.src = "./static/images/special.png";
+            break;
           case 3:
             candy4.src = "./static/images/special.png";
+            break;
           default:
             candy5.src = "./static/images/special.png";
+            break;
         }
         score += 50;
         scoreDelta += 50;
@@ -564,12 +580,16 @@ function crushFour(){
         switch (Math.floor(Math.random() * 5)) {
           case 0:
             candy1.src = "./static/images/"+ color1 + "-stripedH.png";
+            break;
           case 1:
             candy2.src = "./static/images/"+ color1 + "-stripedH.png";
+            break;
           case 2:
             candy3.src = "./static/images/"+ color1 + "-stripedH.png";
+            break;
           default:
             candy4.src = "./static/images/"+ color1 + "-stripedH.png";
+            break;
         }
         score += 40;
         scoreDelta += 40;
@@ -632,12 +652,16 @@ function crushFour(){
         switch (Math.floor(Math.random() * 5)) {
           case 0:
             candy1.src = "./static/images/"+ color1 + "-stripedV.png";
+            break;
           case 1:
             candy2.src = "./static/images/"+ color1 + "-stripedV.png";
+            break;
           case 2:
             candy3.src = "./static/images/"+ color1 + "-stripedV.png";
+            break;
           default:
             candy4.src = "./static/images/"+ color1 + "-stripedV.png";
+            break;
         }
         score += 40;
         scoreDelta += 40;
