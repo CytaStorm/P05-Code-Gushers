@@ -1,5 +1,5 @@
-//let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Red", "Purple", "Blue"];
+let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
+//let candies = ["Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -25,7 +25,7 @@ window.onload = function() {
   //console.log("here");
   score = 0;
   scoreDelta = 0;
-  coins = 20;
+  coins = 1;
   //1/10th of a second
   window.setInterval(function(){
   //  if (isFirstLoad) {
@@ -35,9 +35,10 @@ window.onload = function() {
       crushCandy();
       slideCandy();
       generateCandy();
-      checkScoreDelta();
+      //checkScoreDelta();
       if (coins == 0) {
-        alert("GAME OVER");
+        let gameOver = `GAME OVER \nHIGH SCORE ${score}`;
+        alert(gameOver);
       }
       //console.log(scoreDelta);
   //  }
