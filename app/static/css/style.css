@@ -38,7 +38,14 @@
   border-radius: 10px;
   margin: auto;
 }
-
+#board2 {
+  width: 500px;
+  height: 500px;
+  background-color: lightblue;
+  /* border: 5px solid slategray; */
+  border-radius: 10px;
+  margin: auto;
+}
 /* #board img{
   
 } */
