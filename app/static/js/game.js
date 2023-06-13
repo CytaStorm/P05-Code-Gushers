@@ -133,8 +133,8 @@ function dragEnd() {
     currTile.src = otherImg;
     otherTile.src = currImg;
     let validMove = checkValid();
-    if (board[r][c].includes("special") || board[r2][c2].includes("special")) {
-      validMove = True;
+    if (board[r][c].src.includes("special") || board[r2][c2].src.includes("special")) {
+      validMove = true;
     }
     if (!validMove) {
       let currImg = currTile.src;
@@ -146,17 +146,17 @@ function dragEnd() {
       //console.log(checkFiveSpecial(r2,c2,otherTile));
       //
       //check for for direct swipes (swipe red to complete red string)
-      let color = getColor(r, c);
-      console.log(checkSpecial(r2,c2,otherTile, color));
+      let color1 = getColor(r, c);
+      console.log(checkSpecial(r2,c2,otherTile, color1));
       //check for indirect swipes (swipe ohter color to move red to complete red string)
-      color = getColor(r2,c2);
-      console.log(checkSpecial(r,c,currTile, color));
+      let color2 = getColor(r2,c2);
+      console.log(checkSpecial(r,c,currTile, color2));
       coins--;
-      if (board[r][c].includes("special")){
-        crushRainbow(r,c,color);
+      if (board[r][c].src.includes("special")){
+        crushRainbow(r,c,color1);
       }
-      if (board[r2][c2].includes("special")){
-        crushRainbow(r2,c2,color);
+      if (board[r2][c2].src.includes("special")){
+        crushRainbow(r2,c2,color2);
       }
     }
   }
@@ -751,6 +751,7 @@ function crushRainbow(row,col,color){
   for (let r = 0; r < rows; r++){
     for (let c = 0; c < columns; c++){
       if (getColor(r,c) == color){
+        console.log("crushing rainbow");
         board[r][c].src = "./static/images/blank.png";
       }
     }

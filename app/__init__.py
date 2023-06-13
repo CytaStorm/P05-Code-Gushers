@@ -10,9 +10,9 @@ def index():
 def endless():
     return render_template('candy2.html')
 
-#@app.route('/')
-#def home():
-#    return render_template('home.html')
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 if __name__ == "__main__": #false if this file imported as module
     app.debug = True 
