@@ -4,14 +4,15 @@
   background-size: cover;
 }
 
-.home{
+.home {
   text-align: center;
   margin-top: 60px;
   background-color: orange;
 }
 
-.titleheader{
+.titleheader {
   background-color: paleturquoise;
+  /* margin */
 }
 
 #title{
