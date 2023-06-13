@@ -250,7 +250,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
   if (comboCountH == 3 && comboCountV == 3) {
     //make bomb
     console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
-    replaceBomb(checkRow, checkCol, color)
+    replaceBomb(checkRow, checkCol, color) //make bomb
     return ("comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
   }
   if (comboCountH > 2) {
@@ -272,7 +272,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
       case 4:
-        replaceStripe(checkRow, checkCol, "vertical", color);
+        replaceStripe(checkRow, checkCol, "vertical", color); //make stripe
       default:
         score += 30;
         scoreDelta += 30;
