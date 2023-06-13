@@ -24,6 +24,8 @@ FOR LINUX:
 ```
 . venv/bin/activate
 ```
+
+
 ```
 pip install flask
 ```
