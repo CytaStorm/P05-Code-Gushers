@@ -1,5 +1,5 @@
 //let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple"];
+let candies = ["Yellow", "Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -12,22 +12,34 @@ let otherTile;
 
 window.onload = function() {
   startGame();
-  
-  var isFirstLoad = true;
-  
-  // 1/10th of a second
+
+  //let isFirstLoad = true;
+  generateCandy();
+  //console.log(checkValid());
+  while (checkValid()) {
+    crushCandy(true);
+    slideCandy();
+    fillCandy();
+  }
+
+  console.log("here");
+  score = 0;
+  scoreDelta = 0;
+  coins = 20;
+  //1/10th of a second
   window.setInterval(function(){
-    if (isFirstLoad) {
-      isFirstLoad = false;
-    } else {
+  //  if (isFirstLoad) {
+  //    isFirstLoad = false;
+  //  } else
+  //{
       crushCandy();
       slideCandy();
       generateCandy();
       checkScoreDelta();
       console.log(scoreDelta);
-    }
+  //  }
   }, 100);
-  
+
   // Remove the automatic crushing after a certain delay
   setTimeout(function() {
     isFirstLoad = false;
@@ -142,12 +154,14 @@ function dragEnd() {
   }
 }
 
-function crushCandy() {
+function crushCandy(first) {
   crushFive();
   crushFour();
   crushThree();
-  document.getElementById("score").innerText = score;
-  document.getElementById("coins").innerText = coins;
+  if (!first) {
+    document.getElementById("score").innerText = score;
+    document.getElementById("coins").innerText = coins;
+  }
 
 }
 
@@ -577,7 +591,7 @@ function checkValid() {
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        console.log("here0");
+//        console.log("here0");
         return true;
       }
     }
@@ -643,12 +657,51 @@ function crushSpecial(r, c){
     let orientation = getOrientation(r,c);
     crushSpecialStripes(r, c, orientation);
   }
+  if (type = "bomb"){
+    crushBomb(r, c);
+  }
+}
+
+function crushBomb(r, c){
+  xMin = r - 2;
+  xMax = r + 2;
+  yMin = c - 2;
+  yMax = c + 2;
+
+  if (r <= 1){
+    xMin = 0;
+  }
+  if (r >= 9){
+    xMax = 10;
+  }
+  if (c <= 1){
+    yMin = 0;
+  }
+  if (c >= 9){
+    yMax = 10;
+  }
+  for (row = xMin; row < xMax; row++){
+    for (col = yMin; col < yMax; col++){
+      board[row][col].src = "./static/images/blank.png";
+      console.log("bombed at [" + row + ", " + col+"]");
+
+    }
+  }
 }
 
 function generateCandy() {
   for (let c = 0; c < columns;  c++) {
     if (board[0][c].src.includes("blank")) {
       board[0][c].src = "./static/images/" + randomCandy() + ".png";
+    }
+  }
+}
+function fillCandy() {
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < columns;  c++) {
+      if (board[r][c].src.includes("blank")) {
+        board[r][c].src = "./static/images/" + randomCandy() + ".png";
+      }
     }
   }
 }

@@ -80,7 +80,7 @@ Uploaded all sprites to Github and resolved merge errors
 
 jianhongL  -- 2023-06-11 18:44
 
-Crush special striped ducks 
+Crush special striped ducks
 
 --------------------------------------------------------------
 
@@ -95,5 +95,11 @@ ziggyJ - 2023-06-11 20:00
 Created a rainbow duck (special.png)
 Configured duck pong background (duck_pond_v2.png)
 Made a tutorial/home page (home.html)
+
+--------------------------------------------------------------
+
+jianhongL  -- 2023-06-12 12:45
+
+Crush special striped ducks
 
 --------------------------------------------------------------
