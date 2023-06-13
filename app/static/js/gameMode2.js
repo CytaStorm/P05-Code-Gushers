@@ -488,6 +488,7 @@ function crushSpecialStripes(row, col, orientation){
       score += 10;
       scoreDelta += 10;
     }
+
   }
   else{
     for (r = 0; r < rows; r++){
