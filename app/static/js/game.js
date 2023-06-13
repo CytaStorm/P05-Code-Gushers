@@ -1,5 +1,5 @@
 //let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple", "Blue"];
+let candies = ["Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
@@ -22,7 +22,7 @@ window.onload = function() {
     fillCandy();
   }
 
-  console.log("here");
+  //console.log("here");
   score = 0;
   scoreDelta = 0;
   coins = 20;
@@ -36,7 +36,7 @@ window.onload = function() {
       slideCandy();
       generateCandy();
       checkScoreDelta();
-      console.log(scoreDelta);
+      //console.log(scoreDelta);
   //  }
   }, 100);
 
@@ -80,7 +80,7 @@ function startGame() {
     board.push(row);
   }
 
-  console.log(board);
+  //console.log(board);
 }
 
 function dragStart() {
@@ -132,8 +132,10 @@ function dragEnd() {
     let otherImg = otherTile.src;
     currTile.src = otherImg;
     otherTile.src = currImg;
-
     let validMove = checkValid();
+    if (board[r][c].includes("special") || board[r2][c2].includes("special")) {
+      validMove = True;
+    }
     if (!validMove) {
       let currImg = currTile.src;
       let otherImg = otherTile.src;
@@ -150,6 +152,12 @@ function dragEnd() {
       color = getColor(r2,c2);
       console.log(checkSpecial(r,c,currTile, color));
       coins--;
+      if (board[r][c].includes("special")){
+        crushRainbow(r,c,color);
+      }
+      if (board[r2][c2].includes("special")){
+        crushRainbow(r2,c2,color);
+      }
     }
   }
 }
@@ -166,7 +174,12 @@ function crushCandy(first) {
 }
 
 function getColor(row, col){
+  if (board[row][col].src.includes("special")) {
+    return "special";
+  }
+  
   let t0 = board[row][col].src.split("/");
+  //console.log(t0[t0.length-1]);
   if (board[row][col].src.includes("-")) {
     return t0[t0.length-1].split("-")[0];
   } else {
@@ -179,11 +192,11 @@ function getOrientation(row, col){
   let t0 = board[row][col].src.split("/");
   let t1 = t0[t0.length-1];
   let t2 = t1.split("-");
-  console.log(t2)
+  //console.log(t2)
   let t3 = t2[t2.length-1];
-  console.log(t3);
+  //console.log(t3);
   let t4 = t3.substring(7,t3.length-4);
-  console.log(t4);
+  //console.log(t4);
   return t4;
 }
 
@@ -191,12 +204,14 @@ function replaceBomb(row, col, color){
   board[row][col].src = "./static/images/" + color + "-bomb.png";
 }
 function replaceColorBomb(row, col){
+  console.log("colorBomb used");
   board[row][col].src = "./static/images/special.png";
   score += 50;
   scoreDelta += 50;
 }
 
 function replaceStripe(row, col, orientation, color){
+  console.log("uses replaceStripe");
   if (orientation == "vertical") {
     board[row][col].src = "./static/images/" + color + "-stripedV.png";
   } else if (orientation == "horizontal") {
@@ -263,12 +278,12 @@ function checkSpecial(checkRow, checkCol, matchTile) {
 
   if (comboCountH == 3 && comboCountV == 3) {
     //make bomb
-    console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+    //console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
     replaceBomb(checkRow, checkCol, color) //make bomb
     return ("comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
   }
   if (comboCountH > 2) {
-    console.log("horizontal comboCount is " + comboCountH);
+    console.log("comboCountH is " + comboCountH);
     switch (comboCountH) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
@@ -281,7 +296,7 @@ function checkSpecial(checkRow, checkCol, matchTile) {
     return comboCountH;
   }
   if (comboCountV > 2) {
-    //console.log("vertical comboCountV is " + comboCount);
+    console.log("comboCountV is " + comboCountV);
     switch (comboCountV) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
@@ -393,15 +408,15 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy1.src = "./static/images/special.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy2.src = "./static/images/special.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy3.src = "./static/images/special.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy4.src = "./static/images/special.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy5.src = "./static/images/special.png";
         }
         score += 50;
         scoreDelta += 50;
@@ -446,15 +461,15 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy1.src = "./static/images/special.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy2.src = "./static/images/special.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy3.src = "./static/images/special.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy4.src = "./static/images/special.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy5.src = "./static/images/special.png";
         }
         score += 50;
         scoreDelta += 50;
@@ -498,8 +513,29 @@ function crushFour(){
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       let color4 = getColor(r,c+3);
-      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+      
+      //console.log("color1: " + color1);
+      //console.log("color2: " + color2);
+      //console.log("color3: " + color3);
+      //console.log("color4: " + color4);
+      //let test = color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank");
+      //if (test) {
+      //  console.log("test true");
+      //}
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank") && !candy1.src.includes("special")) {
         //console.log("crush 4 column " + color1);
+        if (color1 == "special" || color2 == "special" || color3 == "special" || color4 == "special") {
+          console.log("one of these is special");
+          if (color1 == "special") {
+            console.log("color1 is special");
+          } else if (color2 == "special") {
+            console.log("color2 is special");
+          } else if (color3 == "special") {
+            console.log("color3 is special");
+          } else {
+            console.log("color4 is special");
+          }
+        }
         if (isSpecial(candy1.src)){
           crushSpecial(r, c);
         }
@@ -545,8 +581,29 @@ function crushFour(){
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       let color4 = getColor(r+3,c);
-      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+      //console.log("color1: " + color1);
+      //console.log("color2: " + color2);
+      //console.log("color3: " + color3);
+      //console.log("color4: " + color4);
+      //let test = color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank");
+      //if (test) {
+      //  console.log("test true");
+      //}
+
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank") && !candy1.src.includes("special")) {
         //console.log("crush 4 column " + color1);
+        //if (color1 == "special" || color2 == "special" || color3 == "special" || color4 == "special") {
+        //  console.log("one of these is special");
+        //  if (color1 == "special") {
+        //    console.log("color1 is special");
+        //  } else if (color2 == "special") {
+        //    console.log("color2 is special");
+        //  } else if (color3 == "special") {
+        //    console.log("color3 is special");
+        //  } else {
+        //    console.log("color4 is special");
+        //  }
+        //}
         if (isSpecial(candy1.src)){
           crushSpecial(r, c);
         }
@@ -605,7 +662,7 @@ function checkValid() {
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        console.log("here");
+        //console.log("here");
         return true;
       }
     }
@@ -683,8 +740,19 @@ function crushBomb(r, c){
   for (row = xMin; row < xMax; row++){
     for (col = yMin; col < yMax; col++){
       board[row][col].src = "./static/images/blank.png";
-      console.log("bombed at [" + row + ", " + col+"]");
+      //console.log("bombed at [" + row + ", " + col+"]");
 
+    }
+  }
+}
+
+function crushRainbow(row,col,color){
+  board[row][col].src = "./static/images/blank.png";
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < columns; c++){
+      if (getColor(r,c) == color){
+        board[r][c].src = "./static/images/blank.png";
+      }
     }
   }
 }
