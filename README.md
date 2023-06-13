@@ -1,4 +1,4 @@
-# Duckies Crush - P05-Code-Gushers
+# Duckies Crush by P05-Code-Gushers
 Match 3 ducks for high score!
 Get special ducks to clear more for more score!
 
