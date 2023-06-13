@@ -9,6 +9,10 @@
   background-color: orange;
 }
 
+.info{
+  padding: 30px;
+}
+
 .titleheader {
   background-color: paleturquoise;
   border-radius: 30px;
@@ -37,20 +41,6 @@
   background-color: lightblue;
   border-radius: 10px;
   margin: auto;
-}
-#board2 {
-  width: 500px;
-  height: 500px;
-  background-color: lightblue;
-  /* border: 5px solid slategray; */
-  border-radius: 10px;
-  margin: auto;
-}
-#counter {
-  background-color: lightblue
-}
-#counter2 {
-  background-color: lightblue
 }
 
 /* #board img{
@@ -82,6 +72,3 @@ li a:hover {
   background-color: cornflowerblue;
 }
 
-.custom-btn{
-  color: white;
-}
