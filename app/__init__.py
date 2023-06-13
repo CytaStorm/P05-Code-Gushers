@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)    #create Flask object
 
-@app.route('/')
+@app.route('/candy')
 def index():
     return render_template('candy.html')
 

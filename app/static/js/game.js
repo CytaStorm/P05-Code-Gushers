@@ -36,6 +36,9 @@ window.onload = function() {
       slideCandy();
       generateCandy();
       checkScoreDelta();
+      if (coins == 0) {
+        alert("GAME OVER");
+      }
       //console.log(scoreDelta);
   //  }
   }, 100);
@@ -153,10 +156,10 @@ function dragEnd() {
       console.log(checkSpecial(r,c,currTile, color2));
       coins--;
       if (board[r][c].src.includes("special")){
-        crushRainbow(r,c,color1);
+        crushRainbow(r,c,color2);
       }
       if (board[r2][c2].src.includes("special")){
-        crushRainbow(r2,c2,color2);
+        crushRainbow(r2,c2,color1);
       }
     }
   }
