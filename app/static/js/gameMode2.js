@@ -1,9 +1,11 @@
 //let candies = ["Blue", "Pink", "Green", "Yellow", "Red", "Purple"];
-let candies = ["Yellow", "Red", "Purple", "Blue"];
+let candies = ["Red", "Purple", "Blue"];
 let board = [];
 let rows = 10;
 let columns = 10;
 let score = 0;
+let coins = 10;
+let scoreDelta = 0;
 
 let currTile;
 let otherTile;
@@ -20,8 +22,10 @@ window.onload = function() {
     fillCandy();
   }
 
-  console.log("here");
+  //console.log("here");
   score = 0;
+  scoreDelta = 0;
+  coins = 20;
   //1/10th of a second
   window.setInterval(function(){
   //  if (isFirstLoad) {
@@ -30,6 +34,12 @@ window.onload = function() {
   //{
       crushCandy();
       slideCandy();
+      //generateCandy();
+      //checkScoreDelta();
+      //if (coins == 0) {
+      //  alert("GAME OVER");
+      //}
+      //console.log(scoreDelta);
   //  }
   }, 100);
 
@@ -39,6 +49,13 @@ window.onload = function() {
   }, 2000); // Change the delay as needed
 }
 
+function checkScoreDelta() {
+  if (scoreDelta >= 100) {
+    let addCoins = Math.floor((scoreDelta / 100));
+    coins += addCoins;
+    scoreDelta = scoreDelta % 100;
+  }
+}
 function randomCandy() {
   return candies[Math.floor(Math.random() * candies.length)]; //0 - 5.99
 }
@@ -60,13 +77,13 @@ function startGame() {
       tile.addEventListener("drop", dragDrop); //dropping a candy over another candy
       tile.addEventListener("dragend", dragEnd); //after drag process completed, we swap candies
 
-      document.getElementById("board").append(tile);
+      document.getElementById("board2").append(tile);
       row.push(tile);
     }
     board.push(row);
   }
 
-  console.log(board);
+  //console.log(board);
 }
 
 function dragStart() {
@@ -118,8 +135,10 @@ function dragEnd() {
     let otherImg = otherTile.src;
     currTile.src = otherImg;
     otherTile.src = currImg;
-
     let validMove = checkValid();
+    if (board[r][c].src.includes("special") || board[r2][c2].src.includes("special")) {
+      validMove = true;
+    }
     if (!validMove) {
       let currImg = currTile.src;
       let otherImg = otherTile.src;
@@ -130,12 +149,18 @@ function dragEnd() {
       //console.log(checkFiveSpecial(r2,c2,otherTile));
       //
       //check for for direct swipes (swipe red to complete red string)
-      let color = getColor(r, c);
-      console.log(checkSpecial(r2,c2,otherTile, color));
+      let color1 = getColor(r, c);
+      console.log(checkSpecial(r2,c2,otherTile, color1));
       //check for indirect swipes (swipe ohter color to move red to complete red string)
-      color = getColor(r2,c2);
-      console.log(checkSpecial(r,c,currTile, color));
+      let color2 = getColor(r2,c2);
+      console.log(checkSpecial(r,c,currTile, color2));
       coins--;
+      if (board[r][c].src.includes("special")){
+        crushRainbow(r,c,color2);
+      }
+      if (board[r2][c2].src.includes("special")){
+        crushRainbow(r2,c2,color1);
+      }
     }
   }
 }
@@ -146,13 +171,18 @@ function crushCandy(first) {
   crushThree();
   if (!first) {
     document.getElementById("score").innerText = score;
-    document.getElementById("coins").innerText = coins;
+    //document.getElementById("coins").innerText = coins;
   }
 
 }
 
 function getColor(row, col){
+  if (board[row][col].src.includes("special")) {
+    return "special";
+  }
+  
   let t0 = board[row][col].src.split("/");
+  //console.log(t0[t0.length-1]);
   if (board[row][col].src.includes("-")) {
     return t0[t0.length-1].split("-")[0];
   } else {
@@ -165,11 +195,11 @@ function getOrientation(row, col){
   let t0 = board[row][col].src.split("/");
   let t1 = t0[t0.length-1];
   let t2 = t1.split("-");
-  console.log(t2)
+  //console.log(t2)
   let t3 = t2[t2.length-1];
-  console.log(t3);
+  //console.log(t3);
   let t4 = t3.substring(7,t3.length-4);
-  console.log(t4);
+  //console.log(t4);
   return t4;
 }
 
@@ -177,11 +207,14 @@ function replaceBomb(row, col, color){
   board[row][col].src = "./static/images/" + color + "-bomb.png";
 }
 function replaceColorBomb(row, col){
+  console.log("colorBomb used");
   board[row][col].src = "./static/images/special.png";
   score += 50;
+  scoreDelta += 50;
 }
 
 function replaceStripe(row, col, orientation, color){
+  console.log("uses replaceStripe");
   if (orientation == "vertical") {
     board[row][col].src = "./static/images/" + color + "-stripedV.png";
   } else if (orientation == "horizontal") {
@@ -190,6 +223,7 @@ function replaceStripe(row, col, orientation, color){
     throw new Error('Please specify orientation');
   }
   score += 40;
+  scoreDelta += 50;
 }
 function checkSpecial(checkRow, checkCol, matchTile) {
   let color = getColor(checkRow, checkCol);
@@ -247,12 +281,12 @@ function checkSpecial(checkRow, checkCol, matchTile) {
 
   if (comboCountH == 3 && comboCountV == 3) {
     //make bomb
-    console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
-    replaceBomb(checkRow, checkCol, color)
+    //console.log("make bomb! comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
+    replaceBomb(checkRow, checkCol, color) //make bomb
     return ("comboCountH is " + comboCountH + ", comboCountV is " + comboCountV);
   }
   if (comboCountH > 2) {
-    console.log("horizontal comboCount is " + comboCountH);
+    console.log("comboCountH is " + comboCountH);
     switch (comboCountH) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
@@ -260,18 +294,20 @@ function checkSpecial(checkRow, checkCol, matchTile) {
         replaceStripe(checkRow, checkCol, "horizontal", color);
       default:
         score += 30;
+        scoreDelta += 30;
     }
     return comboCountH;
   }
   if (comboCountV > 2) {
-    //console.log("vertical comboCountV is " + comboCount);
+    console.log("comboCountV is " + comboCountV);
     switch (comboCountV) {
       case 5:
         replaceColorBomb(checkRow, checkCol);
       case 4:
-        replaceStripe(checkRow, checkCol, "vertical", color);
+        replaceStripe(checkRow, checkCol, "vertical", color); //make stripe
       default:
         score += 30;
+        scoreDelta += 30;
     }
     return comboCountV;
   }
@@ -303,6 +339,7 @@ function crushThree() {
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         score += 30;
+        scoreDelta += 30;
       }
     }
   }
@@ -330,6 +367,7 @@ function crushThree() {
         candy2.src = "./static/images/blank.png";
         candy3.src = "./static/images/blank.png";
         score += 30;
+        scoreDelta += 30;
       }
     }
   }
@@ -373,17 +411,18 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy1.src = "./static/images/special.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy2.src = "./static/images/special.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy3.src = "./static/images/special.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy4.src = "./static/images/special.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedH.png";
+            candy5.src = "./static/images/special.png";
         }
         score += 50;
+        scoreDelta += 50;
       }
     }
   }
@@ -425,17 +464,18 @@ function crushFive(){
         candy5.src = "./static/images/blank.png";
         switch (Math.floor(Math.random() * 5)) {
           case 0:
-            candy1.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy1.src = "./static/images/special.png";
           case 1:
-            candy2.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy2.src = "./static/images/special.png";
           case 2:
-            candy3.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy3.src = "./static/images/special.png";
           case 3:
-            candy4.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy4.src = "./static/images/special.png";
           default:
-            candy5.src = "./static/images/"+ color1 + "-stripedV.png";
+            candy5.src = "./static/images/special.png";
         }
         score += 50;
+        scoreDelta += 50;
       }
     }
   }
@@ -476,8 +516,29 @@ function crushFour(){
       let color2 = getColor(r,c+1);
       let color3 = getColor(r,c+2);
       let color4 = getColor(r,c+3);
-      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+      
+      //console.log("color1: " + color1);
+      //console.log("color2: " + color2);
+      //console.log("color3: " + color3);
+      //console.log("color4: " + color4);
+      //let test = color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank");
+      //if (test) {
+      //  console.log("test true");
+      //}
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank") && !candy1.src.includes("special")) {
         //console.log("crush 4 column " + color1);
+        if (color1 == "special" || color2 == "special" || color3 == "special" || color4 == "special") {
+          console.log("one of these is special");
+          if (color1 == "special") {
+            console.log("color1 is special");
+          } else if (color2 == "special") {
+            console.log("color2 is special");
+          } else if (color3 == "special") {
+            console.log("color3 is special");
+          } else {
+            console.log("color4 is special");
+          }
+        }
         if (isSpecial(candy1.src)){
           crushSpecial(r, c);
         }
@@ -506,6 +567,7 @@ function crushFour(){
             candy4.src = "./static/images/"+ color1 + "-stripedH.png";
         }
         score += 40;
+        scoreDelta += 40;
       }
     }
   }
@@ -522,8 +584,29 @@ function crushFour(){
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       let color4 = getColor(r+3,c);
-      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank")) {
+      //console.log("color1: " + color1);
+      //console.log("color2: " + color2);
+      //console.log("color3: " + color3);
+      //console.log("color4: " + color4);
+      //let test = color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank");
+      //if (test) {
+      //  console.log("test true");
+      //}
+
+      if (color1 == color2 && color2 == color3 && color3 == color4 && !candy1.src.includes("blank") && !candy1.src.includes("special")) {
         //console.log("crush 4 column " + color1);
+        //if (color1 == "special" || color2 == "special" || color3 == "special" || color4 == "special") {
+        //  console.log("one of these is special");
+        //  if (color1 == "special") {
+        //    console.log("color1 is special");
+        //  } else if (color2 == "special") {
+        //    console.log("color2 is special");
+        //  } else if (color3 == "special") {
+        //    console.log("color3 is special");
+        //  } else {
+        //    console.log("color4 is special");
+        //  }
+        //}
         if (isSpecial(candy1.src)){
           crushSpecial(r, c);
         }
@@ -552,6 +635,7 @@ function crushFour(){
             candy4.src = "./static/images/"+ color1 + "-stripedV.png";
         }
         score += 40;
+        scoreDelta += 40;
         //spawn 4 duck powerup (vertical)
       }
     }
@@ -581,7 +665,7 @@ function checkValid() {
       let color2 = getColor(r+1,c);
       let color3 = getColor(r+2,c);
       if (color1 == color2 && color2 == color3 && !candy1.src.includes("blank")) {
-        console.log("here");
+        //console.log("here");
         return true;
       }
     }
@@ -659,8 +743,20 @@ function crushBomb(r, c){
   for (row = xMin; row < xMax; row++){
     for (col = yMin; col < yMax; col++){
       board[row][col].src = "./static/images/blank.png";
-      console.log("bombed at [" + row + ", " + col+"]");
+      //console.log("bombed at [" + row + ", " + col+"]");
 
+    }
+  }
+}
+
+function crushRainbow(row,col,color){
+  board[row][col].src = "./static/images/blank.png";
+  for (let r = 0; r < rows; r++){
+    for (let c = 0; c < columns; c++){
+      if (getColor(r,c) == color){
+        console.log("crushing rainbow");
+        board[r][c].src = "./static/images/blank.png";
+      }
     }
   }
 }
